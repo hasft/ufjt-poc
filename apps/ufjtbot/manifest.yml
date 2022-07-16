@@ -1,0 +1,35 @@
+display_information:
+  name: ufjt
+features:
+  bot_user:
+    display_name: ufjt
+    always_online: false
+  slash_commands:
+    - command: /ufjt
+      url: https://e0c1-54-254-38-113.ngrok.io/slack/events
+      description: Launch the Rocket!
+      should_escape: false
+oauth_config:
+  scopes:
+    bot:
+      - commands
+      - chat:write
+      - chat:write.public
+      - groups:read
+      - im:history
+      - im:read
+      - links:read
+      - team:read
+      - users:read
+      - channels:read
+settings:
+  event_subscriptions:
+    request_url: https://e0c1-54-254-38-113.ngrok.io/slack/events
+    bot_events:
+      - app_home_opened
+  interactivity:
+    is_enabled: true
+    request_url: https://e0c1-54-254-38-113.ngrok.io/slack/events
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false

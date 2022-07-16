@@ -1,0 +1,4 @@
+node_modules
+src/slack/blocks/**/*.ts
+build
+.turbo

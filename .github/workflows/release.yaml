@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    name: Release
+    timeout-minutes: 15
+    runs-on: ${{ matrix.os }}
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.32.2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: build monorepo
+        run: pnpm build
+
+      - name: test & lint
+        run: pnpm all
+
+      - name: Create Release Pull Request or Publish to npm
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          # This expects you to have a script called release which does a build for your packages and calls changeset publish
+          publish: pnpm release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

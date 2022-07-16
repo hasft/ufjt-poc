@@ -1,0 +1,16 @@
+{
+  "name": "@ufjt-poc/logger",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "build/main.js",
+  "scripts": {
+    "build": "swc src -d build",
+    "test": "jest",
+    "type": "tsc --declaration --emitDeclarationOnly --outDir build --project tsconfig.json",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "dependencies": {
+    "kleur": "^4.1.4"
+  }
+}

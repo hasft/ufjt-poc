@@ -1,0 +1,36 @@
+{
+  "name": "ufjt-poc",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "turbo run build",
+    "types": "turbo run types",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "dev": "turbo run dev --no-cache --parallel --continue",
+    "start": "turbo run start",
+    "all": "turbo run test lint",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "version-snapshot": "changeset version --snapshot ufjtsnap",
+    "release:snapshot": "turbo run build --filter=...{./packages/*} && changeset publish --no-git-tag --snapshot",
+    "release": "turbo run build --filter=logger^... && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/changelog-git": "^0.1.11",
+    "@changesets/cli": "^2.23.1",
+    "@swc/cli": "^0.1.57",
+    "@swc/core": "^1.2.194",
+    "@swc/jest": "^0.2.21",
+    "@ufjt-poc/eslint-config-custom": "workspace:*",
+    "@ufjt-poc/jest-config": "workspace:*",
+    "@ufjt-poc/tsconfig": "workspace:*",
+    "chokidar": "^3.5.3",
+    "concurrently": "^7.2.2",
+    "eslint": "^8.16.0",
+    "jest": "^28.1.0",
+    "turbo": "^1.2.14",
+    "typescript": "^4.7.2"
+  },
+  "license": "ISC"
+}

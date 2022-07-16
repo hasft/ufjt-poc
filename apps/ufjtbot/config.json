@@ -1,0 +1,12 @@
+{
+  "port": 8000,
+  "host": "https://e0c1-54-254-38-113.ngrok.io",
+  "mode": "dev",
+  "appName": "ufjt",
+  "command": "/ufjt",
+  "slackRedirectOauthPath": "/slack/oauth_redirect",
+  "githubRedirectOauthPath": "/login/oauth2/code/github",
+  "githubWebhookPath": "/github-webhook",
+  "logLevel": "debug",
+  "dbName": "ufjt"
+}

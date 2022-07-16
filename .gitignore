@@ -1,0 +1,7 @@
+.turbo
+.idea
+node_modules
+build
+dist
+ssr.config.json
+.env
