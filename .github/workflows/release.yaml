@@ -44,6 +44,9 @@ jobs:
       - name: test & lint
         run: pnpm all
 
+      - name: remove bot from publish
+        run: node .github/actions/fix-changeset.js
+
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1

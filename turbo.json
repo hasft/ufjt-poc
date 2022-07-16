@@ -22,11 +22,11 @@
     "dev": {
       "cache": false
     },
-    "publish": {
+    "release": {
       "dependsOn": ["build", "test", "lint"],
       "outputs": []
     },
-    "ufjtbot#build": {
+    "@ufjt-poc/bot#build": {
       "dependsOn": ["@ufjt-poc/logger#type", "@ufjt-poc/logger#build"],
       "outputs": []
     }

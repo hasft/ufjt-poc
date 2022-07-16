@@ -1,14 +1,9 @@
 ### Workflow
 
-```shell
-pnpm install
-pnpm all # RUN test lint
+```text
+MAJOR version when you make incompatible API changes,
+MINOR version when you add functionality in a backwards compatible manner, and
+PATCH version when you make backwards compatible bug fixes.
 ```
 
-#### Scenario
-1. You want to fix some feature on some package lib.
-```shell
-# commit as fix/feature-name 
-pnpm changeset
-```
-
+Never changeset of Apps. 
