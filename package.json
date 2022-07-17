@@ -14,7 +14,7 @@
     "version-packages": "changeset version",
     "version-snapshot": "changeset version --snapshot ufjtsnap",
     "release:snapshot": "turbo run build --filter=logger^... && changeset publish --no-git-tag --snapshot",
-    "release": "turbo run build --filter=logger^... && changeset publish",
+    "release": "turbo run build --filter=@ufjt-poc/bot^... && changeset publish",
     "dddd": "node ./.github/actions/fix-changeset.js"
   },
   "devDependencies": {
