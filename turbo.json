@@ -4,6 +4,10 @@
       "outputs": [],
       "dependsOn": ["type"]
     },
+    "bundle": {
+      "outputs": [],
+      "dependsOn": ["build"]
+    },
     "type": {
       "outputs": []
     },

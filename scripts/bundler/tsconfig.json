@@ -1,0 +1,8 @@
+{
+  "extends": "@ufjt-poc/tsconfig/base.json",
+  "include": ["src/**/*.ts"],
+  "compilerOptions": {
+    "target": "es2021",
+    "module": "esnext"
+  }
+}

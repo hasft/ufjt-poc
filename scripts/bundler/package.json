@@ -1,0 +1,23 @@
+{
+  "name": "@ufjt-poc/bundler",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "ufjt-bundler": "build/main.js"
+  },
+  "scripts": {
+    "build": "swc src -d build -C jsc.parser.syntax=typescript -C module.type=es6 -C jsc.target=es2021 -C jsc.externalHelpers=true -C jsc.experimental.keepImportAssertions=true --no-swcrc",
+    "watch": "pnpm build -- -w",
+    "lint": "eslint src --fix"
+  },
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "rollup": "^2.77.0",
+    "rollup-plugin-dts": "^4.2.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "yargs": "^17.5.1"
+  },
+  "devDependencies": {
+    "@types/strip-comments": "^2.0.1"
+  }
+}

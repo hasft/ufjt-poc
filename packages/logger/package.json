@@ -2,13 +2,14 @@
   "name": "@ufjt-poc/logger",
   "version": "1.0.2",
   "type": "module",
-  "main": "build/main.js",
+  "main": "dist/bundle.js",
+  "types": "dist/bundle.d.ts",
   "scripts": {
     "build": "swc src -d build",
+    "watch": "pnpm build -- -w",
     "test": "jest",
-    "type": "tsc --declaration --emitDeclarationOnly --outDir build --project tsconfig.json",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint": "eslint . --fix",
+    "bundle": "ufjt-bundler build build/main.js"
   },
   "dependencies": {
     "kleur": "^4.1.4"
