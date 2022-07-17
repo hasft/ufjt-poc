@@ -3,8 +3,10 @@ const path = require('path');
 
 const dirPath = path.join(process.cwd(), '.changeset')
 const changesets = fs.readdirSync(dirPath, 'utf-8');
-
+console.log(changesets, 'changesets');
 const mdFiles = changesets.filter(file => /^(?!README).*\.md$/.test(file));
+
+console.log(mdFiles, '.md files');
 
 Promise.all(mdFiles.map(file => {
   const loc = path.join(dirPath, file);
