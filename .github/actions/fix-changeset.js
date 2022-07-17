@@ -15,9 +15,9 @@ Promise.all(mdFiles.map(file => {
     loc
   }
 })).then(res => {
-
   res.forEach(f => {
     const result = f.str.replace(/^"@ufjt-poc\/bot".*\n?/gm, '');
+    console.log(result, 'result');
 
     if (/---\n---/.test(result)) {
       fs.unlinkSync(f.loc);
