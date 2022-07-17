@@ -12,10 +12,7 @@
     "clean": "turbo run clean && rm -rf node_modules",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "version-snapshot": "changeset version --snapshot ufjtsnap",
-    "release:snapshot": "turbo run build --filter=logger^... && changeset publish --no-git-tag --snapshot",
-    "release": "turbo run build --filter=@ufjt-poc/bot^... && changeset publish",
-    "dddd": "node ./.github/actions/fix-changeset.js"
+    "publish": "turbo run build --filter=@ufjt-poc/bot^... && pnpm publish --filter \"./packages/**\""
   },
   "devDependencies": {
     "@changesets/changelog-git": "^0.1.11",
