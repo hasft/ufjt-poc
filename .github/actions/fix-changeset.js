@@ -17,11 +17,12 @@ Promise.all(mdFiles.map(file => {
 })).then(res => {
   res.forEach(f => {
     const result = f.str.replace(/^"@ufjt-poc\/bot".*\n?/gm, '');
-    console.log(result, 'result');
 
     if (/---\n---/.test(result)) {
+      console.log(`FIX single changeset -> Removing ${res.loc}`);
       fs.unlinkSync(f.loc);
     } else {
+      console.log(`FIX Updating ${res.loc}`);
       fs.writeFileSync(f.loc, result, { encoding: 'utf-8' })
     }
   })
