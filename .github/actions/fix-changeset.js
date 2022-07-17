@@ -19,10 +19,10 @@ Promise.all(mdFiles.map(file => {
     const result = f.str.replace(/^"@ufjt-poc\/bot".*\n?/gm, '');
 
     if (/---\n---/.test(result)) {
-      console.log(`FIX single changeset -> Removing ${res.loc}`);
+      console.log(`FIX single changeset -> Removing ${f.loc}`);
       fs.unlinkSync(f.loc);
     } else {
-      console.log(`FIX Updating ${res.loc}`);
+      console.log(`FIX Updating ${f.loc}`);
       fs.writeFileSync(f.loc, result, { encoding: 'utf-8' })
     }
   })
