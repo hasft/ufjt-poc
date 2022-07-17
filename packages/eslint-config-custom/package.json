@@ -1,6 +1,6 @@
 {
   "name": "@ufjt-poc/eslint-config-custom",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": ".eslintrc.js",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.26.0",

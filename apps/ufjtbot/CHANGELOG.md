@@ -1,5 +1,11 @@
 # @ufjt-poc/bot
 
+## 1.0.4
+
+### Patch Changes
+
+- [`b3b8e26`](https://github.com/hasft/ufjt-poc/commit/b3b8e26a742fa42c13c14c9cc0765f8e9408a5cb) Thanks [@hasft](https://github.com/hasft)! - test pnpm publish
+
 ## 1.0.3
 
 ### Patch Changes
