@@ -1,5 +1,11 @@
 # @ufjt-poc/eslint-config-custom
 
+## 1.0.3
+
+### Patch Changes
+
+- [`cabaee9`](https://github.com/hasft/ufjt-poc/commit/cabaee9c06125a7cce3678fdbdd82c47966f943d) Thanks [@hasft](https://github.com/hasft)! - patch update
+
 ## 1.0.2
 
 ### Patch Changes
