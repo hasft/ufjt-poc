@@ -8,6 +8,7 @@ export interface Options {
   module?: 'cjs' | 'esm'
 }
 
+// eslint-disable-next-line complexity,max-statements
 export async function cli(args: string[]) {
   const parser = yargs(args.slice(2)).options({
     ships: { type: 'boolean', default: false },
@@ -16,6 +17,7 @@ export async function cli(args: string[]) {
   // eslint-disable-next-line @typescript-eslint/await-thenable
   const argv = await parser.argv;
   const cmd = argv._[0];
+  // eslint-disable-next-line no-undefined
   const target = argv._[1] as string || undefined;
   const options: Options = {
     minify: Boolean(argv.minify) || true,
