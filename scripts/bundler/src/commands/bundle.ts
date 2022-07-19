@@ -2,6 +2,8 @@ import { Options } from '../cli';
 import { InputOptions, OutputOptions, rollup, RollupBuild } from 'rollup';
 import pluginResolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
+import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
 import dts from 'rollup-plugin-dts';
 import * as path from 'path';
 import * as process from 'process';
@@ -35,11 +37,18 @@ async function generateOutputs(bundler: RollupBuild, outputOptionsList: OutputOp
   }));
 }
 
+// eslint-disable-next-line max-len
+// eslint-disable-next-line max-lines-per-function,max-statements,complexity
 export async function command(options: Options, target?: string) {
+  if (!target) {
+    return;
+  }
+
   const currentPath = (newPath: string) => path.join(process.cwd(), newPath);
+
   const buildFile = path
-    .basename(target as string)
-    .replace(path.extname(target as string), '.js');
+    .basename(target)
+    .replace(path.extname(target), '.js');
 
   const inputTypedOptions: InputOptions = {
     input: target,
@@ -48,28 +57,45 @@ export async function command(options: Options, target?: string) {
 
   const outputTypedOptions = [
     {
-      file: currentPath('dist/bundle.d.ts'),
+      file: currentPath(`${options.outdir}/bundle.d.ts`),
       format: options.module
     }
   ];
 
   const inputOptions: InputOptions = {
-    input: currentPath(`build/${buildFile}`),
+    input: currentPath( `build/${buildFile}`),
     onwarn: (warning) => {
       if ( warning.code === 'THIS_IS_UNDEFINED' ) {
-        console.warn('undefined');
+        console.warn(warning.message);
       }
     },
-    plugins: [pluginResolve(), terser()]
+    plugins: [pluginResolve(), json(), terser()],
+    external: []
   };
+
+  if (options.excludeNodeModules) {
+    inputOptions.external = [/node_modules/];
+  }
+
+  if (options.module === 'cjs') {
+    inputOptions.plugins?.push(commonjs());
+    if (Array.isArray(inputOptions.external)) {
+      inputOptions.external.push('http', 'path');
+    }
+  }
 
   const outputOptions: OutputOptions[] = [
     {
-      file: currentPath('dist/bundle.js'),
+      file: currentPath(`${options.outdir}/bundle.${options.module === 'cjs' ? 'cjs' : 'js'}`),
       format: options.module
     }
   ];
 
   await bundle(inputOptions, outputOptions);
+
+  if (options.module === 'cjs') {
+    return;
+  }
+
   await bundle(inputTypedOptions, outputTypedOptions);
 }

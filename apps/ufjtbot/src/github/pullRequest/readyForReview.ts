@@ -111,6 +111,7 @@ const readyForReview = async ({ payload }: Context<'pull_request.ready_for_revie
     return;
   }
   const reviewers = await getReviewer(channels, requested_reviewers);
+
   if (!reviewers) {
     return;
   }
