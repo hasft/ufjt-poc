@@ -4,6 +4,7 @@
       "outputs": []
     },
     "bundle": {
+      "cache": false,
       "outputs": [],
       "dependsOn": ["build"]
     },
