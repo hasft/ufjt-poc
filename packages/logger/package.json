@@ -14,8 +14,5 @@
   },
   "dependencies": {
     "kleur": "^4.1.4"
-  },
-  "devDependencies": {
-    "@ufjt-poc/bundler": "workspace:*"
   }
 }
