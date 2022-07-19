@@ -8,15 +8,15 @@ import * as process from 'process';
 
 // eslint-disable-next-line max-len
 // eslint-disable-next-line consistent-return,complexity,max-statements
-async function build(inputOptions: InputOptions, outputOptionsList: OutputOptions[]) {
-  let bundle: RollupBuild | null = null;
+async function bundle(inputOptions: InputOptions, outputOptionsList: OutputOptions[]) {
+  let bundler: RollupBuild | null = null;
   let buildFailed = false;
   try {
     // create a bundle
-    bundle = await rollup(inputOptions);
+    bundler = await rollup(inputOptions);
 
     // an array of file names this bundle depends on
-    return await generateOutputs(bundle, outputOptionsList);
+    return await generateOutputs(bundler, outputOptionsList);
   } catch (error) {
     buildFailed = true;
 
@@ -26,33 +26,24 @@ async function build(inputOptions: InputOptions, outputOptionsList: OutputOption
     }
   }
 
-  if (bundle) {
-    // closes the bundle
-    await bundle.close();
-  }
-
   process.exit(buildFailed ? 1 : 0);
 }
 
-async function generateOutputs(bundle: RollupBuild, outputOptionsList: OutputOptions[]) {
-  for (const outputOptions of outputOptionsList) {
-    try {
-      // eslint-disable-next-line no-await-in-loop
-      await bundle.write(outputOptions);
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error(err.message);
-      }
-    }
-  }
+async function generateOutputs(bundler: RollupBuild, outputOptionsList: OutputOptions[]) {
+  await Promise.all(outputOptionsList.map(async (outputOptions) => {
+    await bundler.write(outputOptions);
+  }));
 }
 
 export async function command(options: Options, target?: string) {
   const currentPath = (newPath: string) => path.join(process.cwd(), newPath);
+  const buildFile = path
+    .basename(target as string)
+    .replace(path.extname(target as string), '.js');
 
   const inputTypedOptions: InputOptions = {
-    input: currentPath('build/main.js'),
-    plugins: [pluginResolve(), dts()]
+    input: target,
+    plugins: [dts()]
   };
 
   const outputTypedOptions = [
@@ -63,7 +54,7 @@ export async function command(options: Options, target?: string) {
   ];
 
   const inputOptions: InputOptions = {
-    input: target,
+    input: currentPath(`build/${buildFile}`),
     onwarn: (warning) => {
       if ( warning.code === 'THIS_IS_UNDEFINED' ) {
         console.warn('undefined');
@@ -79,8 +70,6 @@ export async function command(options: Options, target?: string) {
     }
   ];
 
-  await build(inputOptions, outputOptions);
-  await build(inputTypedOptions, outputTypedOptions);
-
-  console.log(options, target);
+  await bundle(inputOptions, outputOptions);
+  await bundle(inputTypedOptions, outputTypedOptions);
 }

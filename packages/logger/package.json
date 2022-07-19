@@ -7,9 +7,10 @@
   "scripts": {
     "build": "swc src -d build",
     "watch": "pnpm build -- -w",
+    "dev": "pnpm watch",
     "test": "jest",
     "lint": "eslint . --fix",
-    "bundle": "ufjt-bundler build build/main.js"
+    "bundle": "ufjt-bundler bundle src/main.ts"
   },
   "dependencies": {
     "kleur": "^4.1.4"

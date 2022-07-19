@@ -1,6 +1,6 @@
 import yargs from 'yargs';
 import process from 'process';
-import { command } from './commands/build.js';
+import { command } from './commands/bundle.js';
 
 export interface Options {
   minify?: boolean;
@@ -29,7 +29,7 @@ export async function cli(args: string[]) {
     process.env.NODE_ENV = process.env.NODE_ENV || 'production';
   }
 
-  if (cmd === 'build') {
+  if (cmd === 'bundle') {
     await command(options, target);
     return;
   }

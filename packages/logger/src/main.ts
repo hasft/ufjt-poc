@@ -141,5 +141,8 @@ class SsrLogger {
 }
 
 /** export one logger to rest of app */
-export const logger = new SsrLogger();
-export const colors = kleurColors;
+const colors = kleurColors;
+const logger: SsrLogger = new SsrLogger();
+
+export { colors, logger };
+
