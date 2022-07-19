@@ -1,6 +1,6 @@
 {
   "name": "@ufjt-poc/bundler",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "bin": {
     "ufjt-bundler": "bin/main.js"
