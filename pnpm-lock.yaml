@@ -10,6 +10,7 @@ importers:
       '@swc/cli': ^0.1.57
       '@swc/core': ^1.2.194
       '@swc/jest': ^0.2.21
+      '@ufjt-poc/bundler': workspace:*
       '@ufjt-poc/eslint-config-custom': workspace:*
       '@ufjt-poc/jest-config': workspace:*
       '@ufjt-poc/tsconfig': workspace:*
@@ -26,6 +27,7 @@ importers:
       '@swc/cli': 0.1.57_@swc+core@1.2.218+chokidar@3.5.3
       '@swc/core': 1.2.218
       '@swc/jest': 0.2.22_@swc+core@1.2.218
+      '@ufjt-poc/bundler': link:scripts/bundler
       '@ufjt-poc/eslint-config-custom': link:packages/eslint-config-custom
       '@ufjt-poc/jest-config': link:packages/jest-config
       '@ufjt-poc/tsconfig': link:packages/tsconfig
@@ -92,12 +94,9 @@ importers:
 
   packages/logger:
     specifiers:
-      '@ufjt-poc/bundler': workspace:*
       kleur: ^4.1.4
     dependencies:
       kleur: 4.1.5
-    devDependencies:
-      '@ufjt-poc/bundler': link:../../scripts/bundler
 
   packages/tsconfig:
     specifiers: {}
