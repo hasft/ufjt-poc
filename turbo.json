@@ -20,7 +20,7 @@
       "cache": false
     },
     "dev": {
-      "dependsOn": ["build", "@ufjt-poc/logger#bundle"]
+      "dependsOn": ["@ufjt-poc/logger#bundle", "build"]
     },
     "release": {
       "dependsOn": ["bundle", "test", "lint"],
