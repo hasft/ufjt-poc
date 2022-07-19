@@ -3,24 +3,23 @@
   "version": "1.0.5",
   "type": "module",
   "scripts": {
-    "build": "swc src -d build -C jsc.parser.syntax=typescript -C module.type=es6 -C jsc.target=es2021 -C jsc.externalHelpers=true -C jsc.experimental.keepImportAssertions=true --no-swcrc",
+    "build": "swc src -d build",
     "watch": "pnpm build -- -w",
     "dev": "concurrently --kill-others \"pnpm watch\" \"pnpm start\"",
     "start": "node --experimental-json-modules build/main.js",
     "update-manifest": "node scripts/update-yaml.js",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint": "eslint . --fix"
   },
   "dependencies": {
     "@octokit/auth-app": "^3.6.1",
     "@octokit/auth-oauth-app": "^5.0.1",
     "@octokit/core": "^3.6.0",
     "@slack/bolt": "^3.11.1",
+    "@ufjt-poc/logger": "workspace:*",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "fs-extra": "^10.1.0",
     "jsonwebtoken": "^8.5.1",
-    "@ufjt-poc/logger": "workspace:*",
     "mongodb": "^4.7.0",
     "probot": "^12.2.5",
     "pug": "^3.0.2"

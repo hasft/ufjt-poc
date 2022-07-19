@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "turbo run build",
+    "bundle": "turbo run bundle",
     "types": "turbo run types",
     "lint": "turbo run lint",
     "test": "turbo run test",

@@ -1,11 +1,11 @@
 {
   "pipeline": {
     "build": {
-      "outputs": [],
-      "dependsOn": ["type"]
-    },
-    "type": {
       "outputs": []
+    },
+    "bundle": {
+      "outputs": [],
+      "dependsOn": ["^build"]
     },
     "lint": {
       "outputs": []
@@ -20,14 +20,10 @@
       "cache": false
     },
     "dev": {
-      "cache": false
+      "dependsOn": ["@ufjt-poc/logger#bundle"]
     },
     "release": {
-      "dependsOn": ["build", "test", "lint"],
-      "outputs": []
-    },
-    "@ufjt-poc/bot#build": {
-      "dependsOn": ["@ufjt-poc/logger#type", "@ufjt-poc/logger#build"],
+      "dependsOn": ["bundle", "test", "lint"],
       "outputs": []
     }
   }
