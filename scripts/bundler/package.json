@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "bin": {
-    "ufjt-bundler": "build/main.js"
+    "ufjt-bundler": "bin/main.js"
   },
   "scripts": {
-    "build": "swc src -d build",
+    "build": "swc src -d bin",
     "watch": "pnpm build -- -w",
     "dev": "pnpm watch",
     "lint": "eslint src --fix"
