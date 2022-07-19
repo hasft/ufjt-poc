@@ -1,5 +1,11 @@
 # @ufjt-poc/logger
 
+## 1.0.4
+
+### Patch Changes
+
+- [#10](https://github.com/hasft/ufjt-poc/pull/10) [`1a83a00`](https://github.com/hasft/ufjt-poc/commit/1a83a001710e5539b94393781e66885a9e1eee51) Thanks [@hasft](https://github.com/hasft)! - rm devDependenciy
+
 ## 1.0.3
 
 ### Patch Changes
