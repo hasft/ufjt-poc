@@ -9,14 +9,15 @@
     "syscall": "spawn",
     "file": "sh",
     "pkgid": "ufjt-poc@1.0.0",
-    "stage": "clean",
-    "script": "turbo run clean && rm -rf node_modules",
+    "stage": "dev",
+    "script": "turbo run dev --no-cache --parallel --continue",
     "pkgname": "ufjt-poc",
     "err": {
       "name": "pnpm",
-      "message": "ufjt-poc@1.0.0 clean: `turbo run clean && rm -rf node_modules`\nspawn ENOENT",
+      "message": "ufjt-poc@1.0.0 dev: `turbo run dev --no-cache --parallel --continue`\nspawn ENOENT",
       "code": "ELIFECYCLE",
-      "stack": "pnpm: ufjt-poc@1.0.0 clean: `turbo run clean && rm -rf node_modules`\nspawn ENOENT\n    at ChildProcess.<anonymous> (/Users/haska/.node/corepack/pnpm/6.22.2/dist/pnpm.cjs:91330:22)\n    at ChildProcess.emit (node:events:390:28)\n    at maybeClose (node:internal/child_process:1062:16)\n    at Process.ChildProcess._handle.onexit (node:internal/child_process:301:5)"
+      "stack": "pnpm: ufjt-poc@1.0.0 dev: `turbo run dev --no-cache --parallel --continue`\nspawn ENOENT\n    at ChildProcess.<anonymous> (/Users/haska/.node/corepack/pnpm/6.22.2/dist/pnpm.cjs:91330:22)\n    at ChildProcess.emit (node:events:390:28)\n    at maybeClose (node:internal/child_process:1062:16)\n    at Process.ChildProcess._handle.onexit (node:internal/child_process:301:5)"
     }
-  }
+  },
+  "2 warn pnpm:global": " Local package.json exists, but node_modules missing, did you mean to install?"
 }

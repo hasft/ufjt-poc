@@ -27,7 +27,7 @@
     "@ufjt-poc/eslint-config-custom": "workspace:*",
     "@ufjt-poc/jest-config": "workspace:*",
     "@ufjt-poc/tsconfig": "workspace:*",
-    "@ufjt-poc/bundler": "workspace:*",
+    "@ufjt-poc/cmd": "workspace:*",
     "chokidar": "^3.5.3",
     "concurrently": "^7.2.2",
     "eslint": "^8.16.0",

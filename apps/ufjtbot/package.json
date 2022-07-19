@@ -8,7 +8,9 @@
     "dev": "concurrently --kill-others \"pnpm watch\" \"pnpm start\"",
     "start": "node --experimental-json-modules build/main.js",
     "update-manifest": "node scripts/update-yaml.js",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "bundle": "ufjtcmd bundle build/main.js --module=cjs --outdir=dist --exclude-node-modules=true",
+    "serve": "node dist/bundle.cjs"
   },
   "dependencies": {
     "@octokit/auth-app": "^3.6.1",

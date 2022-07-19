@@ -1,6 +1,6 @@
 import yargs from 'yargs';
 import process from 'process';
-import { command } from './commands/bundle.js';
+import { command as bundle } from './commands/bundle.js';
 // eslint-disable-next-line complexity,max-statements
 export async function cli(args) {
     const parser = yargs(args.slice(2)).options({
@@ -15,15 +15,16 @@ export async function cli(args) {
     // eslint-disable-next-line no-undefined
     const target = argv._[1] || undefined;
     const options = {
-        minify: Boolean(argv.minify) || true,
-        bundle: Boolean(argv.bundle) || false,
-        module: argv.module || 'esm'
+        minify: argv.minify === 'true' || true,
+        module: argv.module || 'esm',
+        outdir: argv.outdir || 'build',
+        excludeNodeModules: argv.excludeNodeModules === 'true' || false
     };
     if (cmd === 'build') {
         process.env.NODE_ENV = process.env.NODE_ENV || 'production';
     }
     if (cmd === 'bundle') {
-        await command(options, target);
+        await bundle(options, target);
         return;
     }
     process.exit(1);

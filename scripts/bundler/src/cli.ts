@@ -1,11 +1,12 @@
 import yargs from 'yargs';
 import process from 'process';
-import { command } from './commands/bundle.js';
+import { command as bundle } from './commands/bundle.js';
 
 export interface Options {
   minify?: boolean;
-  bundle?: boolean;
-  module?: 'cjs' | 'esm'
+  module?: 'cjs' | 'esm';
+  outdir: string;
+  excludeNodeModules: boolean;
 }
 
 // eslint-disable-next-line complexity,max-statements
@@ -19,10 +20,12 @@ export async function cli(args: string[]) {
   const cmd = argv._[0];
   // eslint-disable-next-line no-undefined
   const target = argv._[1] as string || undefined;
+
   const options: Options = {
-    minify: Boolean(argv.minify) || true,
-    bundle: Boolean(argv.bundle) || false,
-    module: argv.module as 'esm' | 'cjs' || 'esm'
+    minify: argv.minify === 'true' || true,
+    module: argv.module as 'esm' | 'cjs' || 'esm',
+    outdir: argv.outdir as string || 'build',
+    excludeNodeModules: argv.excludeNodeModules === 'true' || false
   };
 
   if (cmd === 'build') {
@@ -30,7 +33,7 @@ export async function cli(args: string[]) {
   }
 
   if (cmd === 'bundle') {
-    await command(options, target);
+    await bundle(options, target);
     return;
   }
 
