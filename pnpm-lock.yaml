@@ -94,9 +94,12 @@ importers:
 
   packages/logger:
     specifiers:
+      '@ufjt-poc/bundler': workspace:*
       kleur: ^4.1.4
     dependencies:
       kleur: 4.1.5
+    devDependencies:
+      '@ufjt-poc/bundler': link:../../scripts/bundler
 
   packages/tsconfig:
     specifiers: {}
