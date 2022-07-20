@@ -120,7 +120,9 @@ export interface ReadyForReviewMessageArguments {
   status: string;
   files: string[];
   labels: string[];
-  reviewers: string[]
+  reviewers: string[];
+  jiraName: string;
+  jiraLink: string;
 }
 
 export interface SetReviewerMessageArguments {

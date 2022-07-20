@@ -5,6 +5,12 @@ import { useSlackClient } from '../../utils.js';
 import { ReadyForReviewMessageArguments, Subscriber } from '../../types';
 import { WithId } from 'mongodb';
 
+interface JiraMatchedGroups {
+  jiraName: string;
+  jiraLink: string;
+}
+
+// eslint-disable-next-line max-lines-per-function
 const createMessagePayload = (
   pullRequest: Context<'pull_request.ready_for_review'>['payload']['pull_request'],
   reviewers: Set<string>
@@ -13,6 +19,7 @@ const createMessagePayload = (
     title,
     html_url: htmlUrl,
     user,
+    body,
     head,
     base,
     labels,
@@ -22,6 +29,8 @@ const createMessagePayload = (
     changed_files: fileChangedSize,
     mergeable_state: status,
   } = pullRequest;
+  const jiraReg = /jira:\s(?:__|[*#])|\[(?<jiraName>(.*?))\]\((?<jiraLink>.*?)\)/;
+  const { jiraLink, jiraName }: JiraMatchedGroups = body?.match(jiraReg)?.groups as unknown as JiraMatchedGroups || {};
   const { login: author } = user;
   const { ref: originBranch, user: headUser } = head;
   const { html_url: ownerUrl } = headUser;
@@ -46,7 +55,9 @@ const createMessagePayload = (
     status,
     files: [],
     labels: labels.map(label => label.name),
-    reviewers: Array.from(reviewers)
+    reviewers: Array.from(reviewers),
+    jiraName,
+    jiraLink
   };
 };
 
@@ -107,6 +118,7 @@ const readyForReview = async ({ payload }: Context<'pull_request.ready_for_revie
     requested_reviewers
   } = pull_request;
   const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
+
   if (!channels) {
     return;
   }
