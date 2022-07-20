@@ -34,10 +34,9 @@ const createMessagePayload = (
   const { login: author } = user;
   const { ref: originBranch, user: headUser } = head;
   const { html_url: ownerUrl } = headUser;
-  const { repo: baseRepo } = base;
+  const { repo: baseRepo, ref: targetBranch } = base;
   const {
-    html_url: targetBranchUrl,
-    full_name: targetBranch
+    html_url: targetBranchUrl
   } = baseRepo;
 
   return {

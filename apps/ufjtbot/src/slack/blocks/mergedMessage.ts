@@ -7,7 +7,7 @@ export default function mergedMessage({ user, url, title, branch, state }: Merge
       'elements': [
         {
           'type': 'mrkdwn',
-          'text': `*Merged*: @${user} has ${state} ~<${url}|${title}>~ to ${branch}`
+          'text': `*Merged*: @${user} has ${state} ~<${url}|${title}>~ ${state === 'merged' ? `to ${branch}` : ''}`
         }
       ]
     }

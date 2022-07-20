@@ -7,7 +7,7 @@ import mergedMessage from '../../slack/blocks/mergedMessage.js';
 export default async function closed({ payload }: Context<'pull_request.closed'>) {
   const { app, token } = useSlackClient();
   const { repository, pull_request, sender } = payload;
-  const { title, html_url, base, state } = pull_request;
+  const { title, html_url, base, merged } = pull_request;
 
   const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
 
@@ -30,7 +30,7 @@ export default async function closed({ payload }: Context<'pull_request.closed'>
         blocks: mergedMessage({
           url: html_url,
           title: title,
-          state: state,
+          state: merged ? 'merged' : 'closed',
           user: sender.login,
           branch: base.ref
         }),
