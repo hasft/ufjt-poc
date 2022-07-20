@@ -140,7 +140,9 @@ export interface PleaseInstallMessageArguments {
 export interface MergedMessageArguments {
   user: string;
   title: string;
+  state: string;
   url: string;
+  branch: string;
 }
 
 export interface Chat {
