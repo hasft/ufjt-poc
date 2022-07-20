@@ -10,7 +10,7 @@ import { getChannelsFromRepository, getPullRequestMessages } from '../../request
  */
 export default async function edited({ payload }: Context<'pull_request.edited'>) {
   const { app, token } = useSlackClient();
-  const { repository, pull_request, changes } = payload;
+  const { repository, pull_request, changes, sender } = payload;
   const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
 
   if (!channels?.length) {
@@ -28,7 +28,7 @@ export default async function edited({ payload }: Context<'pull_request.edited'>
       token,
       channel,
       text: 'Edited 👋',
-      blocks: editedMessage(Object.keys(changes).join(',')),
+      blocks: editedMessage(Object.keys(changes).join(','), sender.login),
       thread_ts: ts
     });
   }));

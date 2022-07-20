@@ -19,8 +19,11 @@
     "clean": {
       "cache": false
     },
+    "watch": {
+      "cache": false
+    },
     "dev": {
-      "dependsOn": ["@ufjt-poc/logger#bundle", "build"]
+      "dependsOn": ["@ufjt-poc/logger#bundle", "^build"]
     },
     "release": {
       "dependsOn": ["bundle", "test", "lint"],

@@ -16,10 +16,13 @@ export default function readyForReviewMessage(args: ReadyForReviewMessageArgumen
     status,
     labels,
     files,
-    reviewers
+    reviewers,
+    jiraName,
+    jiraLink
   } = args;
 
   const convertedTime = Math.floor(new Date(time).getTime() / 1000);
+  const jira = jiraName && jiraLink ? `<${jiraName}|${jiraLink}>` : '-';
 
   return [
     {
@@ -57,6 +60,10 @@ export default function readyForReviewMessage(args: ReadyForReviewMessageArgumen
         {
           'type': 'mrkdwn',
           'text': `*cc*: ${reviewers.length ? reviewers.map(reviewer => `<@${reviewer}>`).join(' | ') : '-'}`
+        },
+        {
+          'type': 'mrkdwn',
+          'text': `*jira*: ${jira}`
         }
       ]
     },
