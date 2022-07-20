@@ -5,7 +5,7 @@
     },
     "bundle": {
       "outputs": [],
-      "dependsOn": ["^build"]
+      "dependsOn": ["build"]
     },
     "lint": {
       "outputs": []
@@ -19,12 +19,18 @@
     "clean": {
       "cache": false
     },
+    "watch": {
+      "cache": false
+    },
     "dev": {
-      "dependsOn": ["@ufjt-poc/logger#bundle"]
+      "dependsOn": ["@ufjt-poc/logger#bundle", "^build"]
     },
     "release": {
       "dependsOn": ["bundle", "test", "lint"],
       "outputs": []
+    },
+    "@ufjt-poc/bot#bundle": {
+      "dependsOn": ["@ufjt-poc/logger#bundle", "build"]
     }
   }
 }

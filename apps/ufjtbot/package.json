@@ -5,10 +5,13 @@
   "scripts": {
     "build": "swc src -d build",
     "watch": "pnpm build -- -w",
-    "dev": "concurrently --kill-others \"pnpm watch\" \"pnpm start\"",
+    "dev": "concurrently --kill-others \"pnpm watch\" \"pnpm start:dev\"",
+    "start:dev": "nodemon --experimental-json-modules build/main.js localhost 8000",
     "start": "node --experimental-json-modules build/main.js",
     "update-manifest": "node scripts/update-yaml.js",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "bundle": "ufjtcmd bundle build/main.js --module=cjs --outdir=dist --exclude-node-modules=true",
+    "serve": "node dist/bundle.cjs"
   },
   "dependencies": {
     "@octokit/auth-app": "^3.6.1",

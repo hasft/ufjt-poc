@@ -10,7 +10,7 @@
     "dev": "pnpm watch",
     "test": "jest",
     "lint": "eslint . --fix",
-    "bundle": "ufjt-bundler bundle src/main.ts"
+    "bundle": "ufjtcmd bundle src/main.ts --outdir=dist"
   },
   "dependencies": {
     "kleur": "^4.1.4"
