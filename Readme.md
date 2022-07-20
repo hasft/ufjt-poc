@@ -6,4 +6,4 @@ MINOR version when you add functionality in a backwards compatible manner, and
 PATCH version when you make backwards compatible bug fixes.
 ```
 
-Never changeset of Apps. 
+note: use changeset cli or run `pnpm changeset`
