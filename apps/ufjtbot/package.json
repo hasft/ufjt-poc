@@ -1,6 +1,7 @@
 {
   "name": "@ufjt-poc/bot",
   "version": "1.0.5",
+  "private": true,
   "type": "module",
   "scripts": {
     "build": "swc src -d build",
