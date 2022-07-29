@@ -1,4 +1,0 @@
-{
-  "root": true,
-  "extends": "@ufjt-poc/eslint-config-custom"
-}

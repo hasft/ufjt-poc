@@ -1,36 +1,23 @@
 {
   "pipeline": {
-    "build": {
-      "outputs": []
-    },
-    "bundle": {
-      "outputs": [],
-      "dependsOn": ["build"]
-    },
-    "lint": {
-      "outputs": []
-    },
     "test": {
       "outputs": []
     },
-    "start": {
-      "cache": false
+    "lint": {
+      "outputs": [],
+      "dependsOn": ["^build"]
+    },
+    "build": {
+      "outputs": ["build/**"],
+      "dependsOn": ["^build"]
+    },
+    "bundle": {
+      "cache": false,
+      "outputs": [],
+      "dependsOn": ["build"]
     },
     "clean": {
-      "cache": false
-    },
-    "watch": {
-      "cache": false
-    },
-    "dev": {
-      "dependsOn": ["@ufjt-poc/logger#bundle", "^build"]
-    },
-    "release": {
-      "dependsOn": ["bundle", "test", "lint"],
       "outputs": []
-    },
-    "@ufjt-poc/bot#bundle": {
-      "dependsOn": ["@ufjt-poc/logger#bundle", "build"]
     }
   }
 }

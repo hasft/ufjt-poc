@@ -1,6 +1,6 @@
 {
   "port": 8000,
-  "host": "https://e0c1-54-254-38-113.ngrok.io",
+  "host": "https://f7c5-2001-448a-2083-1676-213c-e04c-1853-2c32.ngrok.io",
   "mode": "dev",
   "appName": "ufjt",
   "command": "/ufjt",

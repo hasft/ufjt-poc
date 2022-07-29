@@ -6,3 +6,4 @@ dist
 ssr.config.json
 .env
 distNormalize
+dockerized

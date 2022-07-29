@@ -18,7 +18,8 @@ export function normalizeConfig(config: Config): Config {
   return {
     ...config,
     mode: process.env.NODE_ENV || 'dev',
-    jwtAlgorithm: 'RS256',
+    port: process.env.PORT || config.port,
+    host: process.env.HOST || config.host
   };
 }
 
