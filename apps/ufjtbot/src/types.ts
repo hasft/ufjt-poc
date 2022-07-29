@@ -15,7 +15,7 @@ const dada = 'dada';
 console.log(dada);
 
 export interface Config {
-  port: number;
+  port: string | number;
   host: string;
   appName: string;
   command: string;
@@ -24,7 +24,6 @@ export interface Config {
   githubWebhookPath: string;
   mode: 'dev' | 'prod' | 'test';
   logLevel: 'info' | 'error' | 'debug' | 'warn';
-  jwtAlgorithm?: string;
   dbName: string;
 }
 

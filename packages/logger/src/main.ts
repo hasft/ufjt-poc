@@ -14,7 +14,7 @@ const levels: Record<LoggerLevel, number> = {
   silent: 90,
 };
 
-const DEFAULT_NAME = 'ssr';
+const DEFAULT_NAME = 'ufjt';
 
 /** Custom logger heavily-inspired by
  * https://github.com/pinojs/pino with

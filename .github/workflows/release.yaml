@@ -38,12 +38,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: build monorepo
-        run: pnpm bundle
-
-      - name: test & lint
-        run: pnpm all
-
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
