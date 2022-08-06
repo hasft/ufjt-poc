@@ -2,17 +2,15 @@
   "name": "@ufjt-poc/logger",
   "version": "1.0.4",
   "type": "module",
-  "main": "dist/bundle.js",
-  "types": "dist/bundle.d.ts",
+  "main": "build/main.js",
+  "types": "build/main.d.ts",
   "scripts": {
-    "build": "swc src -d build",
-    "watch": "pnpm build -- -w",
-    "dev": "pnpm watch",
     "test": "jest",
     "lint": "eslint . --fix",
-    "bundle": "ufjtcmd bundle src/main.ts --outdir=dist"
+    "build": "swc src -d build -C jsc.parser.syntax=typescript -C module.type=es6 -C jsc.target=es2021 -C jsc.externalHelpers=true -C jsc.experimental.keepImportAssertions=true --no-swcrc",
+    "type": "tsc --declaration src/main.ts --emitDeclarationOnly --outDir build"
   },
   "dependencies": {
-    "kleur": "^4.1.4"
+    "kleur": "^4.1.5"
   }
 }

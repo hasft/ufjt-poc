@@ -37,8 +37,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: build monorepo
-        run: pnpm bundle
+      - name: lint
+        run: pnpm lint
 
-      - name: test & lint
-        run: pnpm all
+      - name: test
+        run: pnpm test
