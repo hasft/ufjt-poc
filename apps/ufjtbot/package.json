@@ -4,7 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "jest",
     "lint": "eslint . --fix",
     "start": "node --experimental-json-modules build/main.js",
     "build": "swc src -d build -C jsc.parser.syntax=typescript -C module.type=es6 -C jsc.target=es2021 -C jsc.externalHelpers=true -C jsc.experimental.keepImportAssertions=true --no-swcrc",
