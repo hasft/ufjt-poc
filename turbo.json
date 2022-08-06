@@ -5,7 +5,7 @@
     },
     "lint": {
       "outputs": [],
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build..."]
     },
     "build": {
       "outputs": ["build/**"],
