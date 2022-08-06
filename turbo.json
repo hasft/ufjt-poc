@@ -5,16 +5,15 @@
     },
     "lint": {
       "outputs": [],
-      "dependsOn": ["^build..."]
+      "dependsOn": ["^build", "^type"]
+    },
+    "type": {
+      "outputs": [],
+      "dependsOn": ["build"]
     },
     "build": {
       "outputs": ["build/**"],
       "dependsOn": ["^build"]
-    },
-    "bundle": {
-      "cache": false,
-      "outputs": [],
-      "dependsOn": ["build"]
     },
     "clean": {
       "outputs": []

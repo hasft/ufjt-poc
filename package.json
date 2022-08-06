@@ -6,7 +6,6 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "build": "turbo run build",
-    "bundle": "turbo run bundle",
     "clean": "turbo run clean",
     "changeset": "changeset",
     "release": "turbo run build --filter=@ufjt-poc/bot^... && changeset publish"
