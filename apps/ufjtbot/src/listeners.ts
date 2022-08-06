@@ -7,7 +7,6 @@ import opened from './github/pullRequest/opened.js';
 import edited from './github/pullRequest/edited.js';
 import reviewComment from './github/pullRequest/reviewComment.js';
 import closed from './github/pullRequest/closed.js';
-import onSetReviewers from './slack/views/onSetReviewers.js';
 import { GithubListeners, SlackListeners } from './types';
 
 export const slackListeners: SlackListeners = [
@@ -22,10 +21,6 @@ export const slackListeners: SlackListeners = [
   {
     name: 'onSubmitGithubCode',
     view: onSubmitGithubCode
-  },
-  {
-    name: 'onSetReviewers',
-    view: onSetReviewers
   },
   {
     name: '/ufjt',
@@ -54,5 +49,9 @@ export const githubListeners: GithubListeners = [
   {
     name: 'pull_request.closed',
     handler: closed
+  },
+  {
+    name: 'pull_request.reopened',
+    handler: readyForReview
   }
 ];

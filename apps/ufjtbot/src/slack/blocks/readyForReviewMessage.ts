@@ -72,7 +72,7 @@ export default function readyForReviewMessage(args: ReadyForReviewMessageArgumen
       'elements': [
         {
           'type': 'mrkdwn',
-          'text': `${labels.map(label => `\`${label}\``).join(' | ')}`
+          'text': `${labels.length ? labels.map(label => `\`${label}\``).join(' | ') : '-'}`
         }
       ]
     }

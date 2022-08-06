@@ -129,3 +129,16 @@ export async function addConversation(chats: Chat[], pullRequestId: number) {
     logger.error(getErrorMessage(err));
   }
 }
+
+export async function removeConversation(chat: Chat) {
+  const { conversations } = useDb();
+  const query = {
+    channel: chat.channel,
+    ts: chat.ts
+  };
+  try {
+    await conversations.deleteOne(query);
+  } catch (err) {
+    logger.error(getErrorMessage(err));
+  }
+}

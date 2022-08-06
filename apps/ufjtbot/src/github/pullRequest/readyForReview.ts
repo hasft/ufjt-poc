@@ -1,9 +1,10 @@
 import { Context } from 'probot';
+import { WithId } from 'mongodb';
 import readyForReviewMessage from '../../slack/blocks/readyForReviewMessage.js';
-import { addConversation, getChannelsFromRepository, getSlackUserName } from '../../requests.js';
+import { addConversation, getChannelsFromRepository } from '../../requests.js';
 import { useSlackClient } from '../../utils.js';
 import { ReadyForReviewMessageArguments, Subscriber } from '../../types';
-import { WithId } from 'mongodb';
+import { getReviewer } from './utils.js';
 
 interface JiraMatchedGroups {
   jiraName: string;
@@ -80,29 +81,6 @@ const getChats = async (channels: WithId<Subscriber>[], messageArguments: ReadyF
   } catch (err) {
     return null;
   }
-};
-
-const getReviewer = async (
-  channels: WithId<Subscriber>[] | null,
-  requested_reviewers: Context<'pull_request.ready_for_review'>['payload']['pull_request']['requested_reviewers']
-): Promise<Set<string> | null> => {
-  if (!channels) {
-    return null;
-  }
-
-  const reviewers: Set<string> = new Set<string>();
-  const isChannelsHadDefaultReviewer = channels?.some(subscriber => subscriber.reviewers);
-
-  if (isChannelsHadDefaultReviewer && !requested_reviewers.length) {
-    channels.forEach(channel => channel.reviewers?.forEach(reviewer => reviewers.add(reviewer)));
-  } else {
-    const userReviewers = await getSlackUserName(requested_reviewers) || [];
-    userReviewers.forEach(reviewer => {
-      reviewers.add(reviewer);
-    });
-  }
-
-  return reviewers;
 };
 
 /**
