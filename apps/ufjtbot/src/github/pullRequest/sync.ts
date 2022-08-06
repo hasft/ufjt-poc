@@ -1,15 +1,13 @@
 import { Context } from 'probot';
 import { useSlackClient } from '../../utils.js';
-import { getChannelsFromRepository, getPullRequestMessages } from '../../requests.js';
+import {
+  getChannelsFromRepository,
+  getPullRequestMessages
+} from '../../requests.js';
 
-/**
- * A notifier when there's commented pr
- * @param payload
- */
-// eslint-disable-next-line max-lines-per-function
-export default async function reviewComment({ payload }: Context<'pull_request_review_comment'>) {
+export default async function sync({ payload }: Context<'pull_request.synchronize'>) {
   const { app, token } = useSlackClient();
-  const { repository, pull_request, comment } = payload;
+  const { pull_request, repository } = payload;
   const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
 
   if (!channels?.length) {
@@ -24,14 +22,14 @@ export default async function reviewComment({ payload }: Context<'pull_request_r
 
   await Promise.all(pullRequestMessages.map(async ({ channel, ts }) => {
     await app.client.chat.postMessage({
-      text: '🌈 Review added',
+      text: '💬 Sync',
       blocks: [
         {
           'type': 'context',
           'elements': [
             {
               'type': 'mrkdwn',
-              'text': `*Review added:* \n ${comment.body}\n<${comment._links.html.href}|link>`
+              'text': '_synchronized..._'
             }
           ]
         }

@@ -14,19 +14,6 @@ export default async function opened({ payload, octokit }: Context<'pull_request
   const collaborators: Endpoints['GET /repos/{owner}/{repo}/collaborators']['response']['data'] = [];
   const { pull_request: pullRequest, repository } = payload;
 
-  if (!pullRequest.labels.length) {
-    try {
-      await octokit.request('POST /repos/{owner}/{repo}/issues/{issue_number}/labels', {
-        owner: repository.owner.login,
-        repo: repository.name,
-        issue_number: pullRequest.number,
-        labels: ['help wanted']
-      });
-    } catch (err) {
-      logger.error(getErrorMessage(err));
-    }
-  }
-
   if (!pullRequest.requested_reviewers.length) {
     try {
       const { data } = await octokit.request('GET /repos/{owner}/{repo}/collaborators', {
