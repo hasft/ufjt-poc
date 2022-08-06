@@ -7,3 +7,5 @@ PATCH version when you make backwards compatible bug fixes.
 ```
 
 note: use changeset cli or run `pnpm changeset`
+
+++
