@@ -39,10 +39,7 @@ jobs:
         run: pnpm install
 
       - name: build monorepo
-        run: pnpm bundle
-
-      - name: test & lint
-        run: pnpm all
+        run: pnpm build
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets

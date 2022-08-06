@@ -37,7 +37,7 @@ const app = async () => {
   });
 
   serverApp.listen(config.port, () => {
-    logger.info(colors.green(`Running server at port ${config.port}`));
+    logger.info(colors.green(`Running express server at port ${config.port}`));
   });
 
   // HANDLE SIGTERM PROCESS

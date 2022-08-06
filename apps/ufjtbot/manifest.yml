@@ -6,7 +6,7 @@ features:
     always_online: false
   slash_commands:
     - command: /ufjt
-      url: https://e0c1-54-254-38-113.ngrok.io/slack/events
+      url: https://f7c5-2001-448a-2083-1676-213c-e04c-1853-2c32.ngrok.io/slack/events
       description: Launch the Rocket!
       should_escape: false
 oauth_config:
@@ -24,12 +24,12 @@ oauth_config:
       - channels:read
 settings:
   event_subscriptions:
-    request_url: https://e0c1-54-254-38-113.ngrok.io/slack/events
+    request_url: https://f7c5-2001-448a-2083-1676-213c-e04c-1853-2c32.ngrok.io/slack/events
     bot_events:
       - app_home_opened
   interactivity:
     is_enabled: true
-    request_url: https://e0c1-54-254-38-113.ngrok.io/slack/events
+    request_url: https://f7c5-2001-448a-2083-1676-213c-e04c-1853-2c32.ngrok.io/slack/events
   org_deploy_enabled: false
   socket_mode_enabled: false
   token_rotation_enabled: false

@@ -1,0 +1,17 @@
+{
+  "name": "@ufjt-poc/cmd",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "main.mjs",
+  "bin": {
+    "cmd": "main.mjs"
+  },
+  "dependencies": {
+    "@pnpm/filter-workspace-packages": "^4.1.11",
+    "@pnpm/find-workspace-dir": "^4.0.2",
+    "@pnpm/logger": "^4.0.0",
+    "globby": "^13.1.2",
+    "tar": "^6.1.11",
+    "yargs-parser": "^21.0.1"
+  }
+}
