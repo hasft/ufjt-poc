@@ -124,10 +124,6 @@ export interface ReadyForReviewMessageArguments {
   jiraLink: string;
 }
 
-export interface SetReviewerMessageArguments {
-  channel: string;
-}
-
 export interface PleaseInstallMessageArguments {
   owner: string;
   repo: string;
@@ -142,9 +138,18 @@ export interface MergedMessageArguments {
   state: string;
   url: string;
   branch: string;
+  number: number;
 }
 
 export interface Chat {
   channel: string,
   ts: string,
+}
+
+export interface ReviewSubmittedMessageArguments {
+  user: string;
+  state: string;
+  time: string;
+  comment: string | null;
+  url: string;
 }

@@ -90,7 +90,26 @@ export async function getPullRequestMessages(channels: WithId<Subscriber>[], pul
   return pullRequestMessages;
 }
 
-export async function getSlackUserName(requested_reviewers: Context<'pull_request'>['payload']['pull_request']['requested_reviewers']): Promise<string[] | null> {
+export async function getSlackUserName(gId: number) {
+  let slackUser;
+  const { users } = useDb();
+
+  try {
+    const query = {
+      gId
+    };
+
+    const ufjtUser = await users.findOne(query) as unknown as WithId<UfjtUser>;
+    slackUser = ufjtUser.sName;
+  } catch (err) {
+    logger.error(getErrorMessage(err));
+    return null;
+  }
+
+  return slackUser;
+}
+
+export async function getSlackReviewersUserName(requested_reviewers: Context<'pull_request'>['payload']['pull_request']['requested_reviewers']): Promise<string[] | null> {
   let userReviewers: string[] = [];
   const { users } = useDb();
 
@@ -121,10 +140,40 @@ export async function addConversation(chats: Chat[], pullRequestId: number) {
       const query = {
         ts: chat.ts,
         channel: chat.channel,
-        pull_request: pullRequestId
+        pull_request: pullRequestId,
+        child: []
       };
       return await conversations.insertOne(query);
     }));
+  } catch (err) {
+    logger.error(getErrorMessage(err));
+  }
+}
+
+export async function removeConversation(chat: Chat) {
+  const { conversations } = useDb();
+  const query = {
+    channel: chat.channel,
+    ts: chat.ts
+  };
+  try {
+    await conversations.deleteOne(query);
+  } catch (err) {
+    logger.error(getErrorMessage(err));
+  }
+}
+
+export async function insertChildToConversation(chat: Chat, childTs: string) {
+  const { conversations } = useDb();
+  const query = {
+    channel: chat.channel,
+    ts: chat.ts
+  };
+  const updater = {
+    $set: { 'child.$[element]': childTs }
+  };
+  try {
+    await conversations.findOneAndUpdate(query, updater, { upsert: true });
   } catch (err) {
     logger.error(getErrorMessage(err));
   }

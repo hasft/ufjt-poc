@@ -1,7 +1,7 @@
 import { Context } from 'probot';
 import { logger } from '@ufjt-poc/logger';
 import { getErrorMessage, useSlackClient } from '../../utils.js';
-import { getChannelsFromRepository, getPullRequestMessages } from '../../requests.js';
+import { getChannelsFromRepository, getPullRequestMessages, removeConversation } from '../../requests.js';
 import mergedMessage from '../../slack/blocks/mergedMessage.js';
 
 export default async function closed({ payload }: Context<'pull_request.closed'>) {
@@ -32,13 +32,14 @@ export default async function closed({ payload }: Context<'pull_request.closed'>
           title: title,
           state: merged ? 'merged' : 'closed',
           user: sender.login,
-          branch: base.ref
+          branch: base.ref,
+          number: pull_request.number
         }),
         ts: ts
       });
+      await removeConversation({ channel, ts });
     }));
   } catch (err) {
     logger.error(getErrorMessage(err));
   }
-
 }
