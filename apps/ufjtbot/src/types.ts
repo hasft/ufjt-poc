@@ -155,4 +155,5 @@ export interface ReviewSubmittedMessageArguments {
   state: string;
   time: string;
   comment: string | null;
+  url: string;
 }

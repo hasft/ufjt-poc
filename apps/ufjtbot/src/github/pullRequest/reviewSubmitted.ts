@@ -7,7 +7,7 @@ export default async function reviewSubmitted({ payload }: Context<'pull_request
   const { app, token } = useSlackClient();
   const { repository, pull_request, review } = payload;
   const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
-  const { state, user, submitted_at, body } = review;
+  const { state, user, submitted_at, body, html_url } = review;
 
   if (!channels?.length) {
     return;
@@ -26,7 +26,8 @@ export default async function reviewSubmitted({ payload }: Context<'pull_request
         user: user.login,
         state,
         time: submitted_at,
-        comment: body
+        comment: body,
+        url: html_url
       }),
       thread_ts: ts,
       channel,

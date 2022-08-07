@@ -13,7 +13,7 @@ const reviewSubmittedCommented = (comment: string ) => {
 }
 
 export default function reviewSubmittedMessage(arg: ReviewSubmittedMessageArguments) {
-  const { user, state, time, comment } = arg;
+  const { user, state, time, comment, url } = arg;
   const convertedTime = Math.floor(new Date(time).getTime() / 1000);
 
   const blocks = [
@@ -22,7 +22,7 @@ export default function reviewSubmittedMessage(arg: ReviewSubmittedMessageArgume
       'elements': [
         {
           'type': 'mrkdwn',
-          'text': `${user} has ${state} on \`<!date^${convertedTime}^{time_secs}|6:39 AM PST>\``
+          'text': `${user} has ${state} on \`<!date^${convertedTime}^{time_secs}|6:39 AM PST>\`\n<${url}|${url}>`
         }
       ]
     }
