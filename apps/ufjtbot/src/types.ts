@@ -142,9 +142,17 @@ export interface MergedMessageArguments {
   state: string;
   url: string;
   branch: string;
+  number: number;
 }
 
 export interface Chat {
   channel: string,
   ts: string,
+}
+
+export interface ReviewSubmittedMessageArguments {
+  user: string;
+  state: string;
+  time: string;
+  comment: string | null;
 }

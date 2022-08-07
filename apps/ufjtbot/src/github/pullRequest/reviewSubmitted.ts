@@ -1,16 +1,13 @@
 import { Context } from 'probot';
 import { useSlackClient } from '../../utils.js';
+import reviewSubmittedMessage from '../../slack/blocks/reviewSubmittedMessage.js';
 import { getChannelsFromRepository, getPullRequestMessages } from '../../requests.js';
 
-/**
- * A notifier when there's commented pr
- * @param payload
- */
-// eslint-disable-next-line max-lines-per-function
-export default async function reviewComment({ payload }: Context<'pull_request_review_comment'>) {
+export default async function reviewSubmitted({ payload }: Context<'pull_request_review.submitted'>) {
   const { app, token } = useSlackClient();
-  const { repository, pull_request, comment } = payload;
+  const { repository, pull_request, review } = payload;
   const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
+  const { state, user, submitted_at, body } = review;
 
   if (!channels?.length) {
     return;
@@ -24,18 +21,13 @@ export default async function reviewComment({ payload }: Context<'pull_request_r
 
   await Promise.all(pullRequestMessages.map(async ({ channel, ts }) => {
     await app.client.chat.postMessage({
-      text: '🌈 Review added',
-      blocks: [
-        {
-          'type': 'context',
-          'elements': [
-            {
-              'type': 'mrkdwn',
-              'text': `*Review added:* \n ${comment.body}\n<${comment._links.html.href}|link>`
-            }
-          ]
-        }
-      ],
+      text: '🌈 Review Submitted',
+      blocks: reviewSubmittedMessage({
+        user: user.login,
+        state,
+        time: submitted_at,
+        comment: body
+      }),
       thread_ts: ts,
       channel,
       token

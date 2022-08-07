@@ -32,7 +32,8 @@ export default async function closed({ payload }: Context<'pull_request.closed'>
           title: title,
           state: merged ? 'merged' : 'closed',
           user: sender.login,
-          branch: base.ref
+          branch: base.ref,
+          number: pull_request.number
         }),
         ts: ts
       });
