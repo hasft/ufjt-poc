@@ -9,7 +9,7 @@ export default async function reviewSubmitted({ payload }: Context<'pull_request
   const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
   const { state, user, submitted_at, body, html_url } = review;
 
-  if (!channels?.length) {
+  if (!channels?.length || state === 'commented') {
     return;
   }
 

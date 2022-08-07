@@ -1,19 +1,7 @@
 import { ReviewSubmittedMessageArguments } from '../../types';
 
-const reviewSubmittedCommented = (comment: string ) => {
-  return {
-    "type": "context",
-    "elements": [
-      {
-        "type": "mrkdwn",
-        "text": comment
-      }
-    ]
-  }
-}
-
 export default function reviewSubmittedMessage(arg: ReviewSubmittedMessageArguments) {
-  const { user, state, time, comment, url } = arg;
+  const { user, state, time, url } = arg;
   const convertedTime = Math.floor(new Date(time).getTime() / 1000);
 
   const blocks = [
@@ -29,8 +17,6 @@ export default function reviewSubmittedMessage(arg: ReviewSubmittedMessageArgume
   ];
 
   switch (state) {
-    case 'commented':
-      return [...blocks, reviewSubmittedCommented(comment || '-')]
     case 'approved':
       return blocks;
     default:
