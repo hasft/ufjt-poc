@@ -30,16 +30,7 @@ export default function reviewSubmittedMessage(arg: ReviewSubmittedMessageArgume
 
   switch (state) {
     case 'commented':
-      blocks.push({
-        "type": "context",
-        "elements": [
-          {
-            "type": "mrkdwn",
-            "text": comment || '-'
-          }
-        ]
-      });
-      return blocks;
+      return [...blocks, reviewSubmittedCommented(comment || '-')]
     case 'approved':
       return blocks;
     default:
