@@ -5,7 +5,7 @@ import { getChannelsFromRepository, getPullRequestMessages } from '../../request
 export default async function commented({ payload }: Context<'pull_request_review_comment.created'>) {
   const { app, token } = useSlackClient();
   const { comment, pull_request, repository } = payload;
-  const { user, diff_hunk, html_url, body } = comment;
+  const { user, diff_hunk, body, path, line } = comment;
   const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
 
   if (!channels?.length) {
@@ -27,7 +27,7 @@ export default async function commented({ payload }: Context<'pull_request_revie
           'elements': [
             {
               'type': 'mrkdwn',
-              'text': `${user.login} commented:\n<${html_url}|LINK>\n\`${diff_hunk}\`\n${body}`
+              'text': `${user.login}\n\`${path}\`\n\`\`\`${diff_hunk}\`\`\`\n${body}`
             }
           ]
         }
