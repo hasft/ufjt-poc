@@ -52,7 +52,7 @@ export const githubListeners: GithubListeners = [
     handler: readyForReview
   },
   {
-    name: ['pull_request_review_comment'],
+    name: ['pull_request_review_comment', 'pull_request.synchronize'],
     handler: commented
   },
   {
