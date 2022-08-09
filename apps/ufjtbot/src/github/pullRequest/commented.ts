@@ -26,7 +26,7 @@ export default async function commented({ payload }: Context<'pull_request_revie
   }
 
   await Promise.all(pullRequestMessages.map(async ({ channel, ts }) => {
-    await app.client.chat.postMessage({
+    const response = await app.client.chat.postMessage({
       text: '💬 Commented',
       blocks: [
         {
@@ -43,5 +43,6 @@ export default async function commented({ payload }: Context<'pull_request_revie
       channel,
       token
     });
+    console.log(response, 'response');
   }));
 }
