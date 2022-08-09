@@ -29,7 +29,7 @@ export default async function sync({ payload }: Context<'pull_request.synchroniz
           'elements': [
             {
               'type': 'mrkdwn',
-              'text': `${pull_request.number} is Synchronized`
+              'text': '...synchronized'
             }
           ]
         }
