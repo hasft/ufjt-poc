@@ -37,7 +37,7 @@ export default function readyForReviewMessage(args: ReadyForReviewMessageArgumen
       'elements': [
         {
           'type': 'mrkdwn',
-          'text': `${author} wants to merge _${commits} commits_ into ` +
+          'text': `@${author} wants to merge _${commits} commits_ into ` +
           `<${targetBranchUrl}|${targetBranch}> from <${originBranchUrl}|${originBranch}> \`<!date^${convertedTime}^{time_secs}|6:39 AM PST>\``
         }
       ]

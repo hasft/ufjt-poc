@@ -1,7 +1,7 @@
 import { Context } from 'probot';
 import { WithId } from 'mongodb';
 import readyForReviewMessage from '../../slack/blocks/readyForReviewMessage.js';
-import { addConversation, getChannelsFromRepository } from '../../requests.js';
+import { addConversation, getChannelsFromRepository, getSlackUserName } from '../../requests.js';
 import { useSlackClient } from '../../utils.js';
 import { ReadyForReviewMessageArguments, Subscriber } from '../../types';
 import { getReviewer } from './utils.js';
@@ -12,10 +12,10 @@ interface JiraMatchedGroups {
 }
 
 // eslint-disable-next-line max-lines-per-function
-const createMessagePayload = (
+const createMessagePayload = async (
   pullRequest: Context<'pull_request.ready_for_review'>['payload']['pull_request'],
   reviewers: Set<string>
-): ReadyForReviewMessageArguments => {
+): Promise<ReadyForReviewMessageArguments> => {
   const {
     title,
     html_url: htmlUrl,
@@ -39,12 +39,13 @@ const createMessagePayload = (
   const {
     html_url: targetBranchUrl
   } = baseRepo;
+  const ufjtUser = await getSlackUserName(user.id);
 
   return {
     title,
     htmlUrl,
     number,
-    author,
+    author: ufjtUser || author,
     commits,
     targetBranch,
     targetBranchUrl,
@@ -92,7 +93,7 @@ const readyForReview = async ({ payload }: Context<'pull_request.ready_for_revie
   const { repository, pull_request } = payload;
   const {
     id: pullRequestId,
-    requested_reviewers
+    requested_reviewers,
   } = pull_request;
   const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
 
@@ -104,7 +105,7 @@ const readyForReview = async ({ payload }: Context<'pull_request.ready_for_revie
   if (!reviewers) {
     return;
   }
-  const messageArguments = createMessagePayload(pull_request, reviewers);
+  const messageArguments = await createMessagePayload(pull_request, reviewers);
   const chats = await getChats(channels, messageArguments);
 
   if (!chats) {
