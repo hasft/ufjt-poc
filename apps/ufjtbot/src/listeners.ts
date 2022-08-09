@@ -8,6 +8,7 @@ import edited from './github/pullRequest/edited.js';
 import closed from './github/pullRequest/closed.js';
 import reviewSubmitted from './github/pullRequest/reviewSubmitted.js';
 import commented from './github/pullRequest/commented.js';
+import sync from './github/pullRequest/sync.js';
 import { GithubListeners, SlackListeners } from './types';
 
 export const slackListeners: SlackListeners = [
@@ -52,8 +53,12 @@ export const githubListeners: GithubListeners = [
     handler: readyForReview
   },
   {
-    name: ['pull_request_review_comment', 'pull_request.synchronize'],
+    name: ['pull_request_review_comment'],
     handler: commented
+  },
+  {
+    name: 'pull_request.synchronize',
+    handler: sync
   },
   {
     name: 'pull_request_review.submitted',
