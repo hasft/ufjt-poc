@@ -1,7 +1,7 @@
 import { WithId } from 'mongodb';
 import { Subscriber } from '../../types';
 import { Context } from 'probot';
-import { getSlackUserName } from '../../requests.js';
+import { getSlackReviewersUserName } from '../../requests.js';
 
 export const getReviewer = async (
   channels: WithId<Subscriber>[] | null,
@@ -17,7 +17,7 @@ export const getReviewer = async (
   if (isChannelsHadDefaultReviewer && !requested_reviewers.length) {
     channels.forEach(channel => channel.reviewers?.forEach(reviewer => reviewers.add(reviewer)));
   } else {
-    const userReviewers = await getSlackUserName(requested_reviewers) || [];
+    const userReviewers = await getSlackReviewersUserName(requested_reviewers) || [];
     userReviewers.forEach(reviewer => {
       reviewers.add(reviewer);
     });

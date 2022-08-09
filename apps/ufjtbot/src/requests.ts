@@ -90,7 +90,26 @@ export async function getPullRequestMessages(channels: WithId<Subscriber>[], pul
   return pullRequestMessages;
 }
 
-export async function getSlackUserName(requested_reviewers: Context<'pull_request'>['payload']['pull_request']['requested_reviewers']): Promise<string[] | null> {
+export async function getSlackUserName(gId: number) {
+  let slackUser;
+  const { users } = useDb();
+
+  try {
+    const query = {
+      gId
+    };
+
+    const ufjtUser = await users.findOne(query) as unknown as WithId<UfjtUser>;
+    slackUser = ufjtUser.sName;
+  } catch (err) {
+    logger.error(getErrorMessage(err));
+    return null;
+  }
+
+  return slackUser;
+}
+
+export async function getSlackReviewersUserName(requested_reviewers: Context<'pull_request'>['payload']['pull_request']['requested_reviewers']): Promise<string[] | null> {
   let userReviewers: string[] = [];
   const { users } = useDb();
 
