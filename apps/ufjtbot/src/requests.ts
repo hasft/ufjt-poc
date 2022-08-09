@@ -140,7 +140,8 @@ export async function addConversation(chats: Chat[], pullRequestId: number) {
       const query = {
         ts: chat.ts,
         channel: chat.channel,
-        pull_request: pullRequestId
+        pull_request: pullRequestId,
+        child: []
       };
       return await conversations.insertOne(query);
     }));
@@ -157,6 +158,22 @@ export async function removeConversation(chat: Chat) {
   };
   try {
     await conversations.deleteOne(query);
+  } catch (err) {
+    logger.error(getErrorMessage(err));
+  }
+}
+
+export async function insertChildToConversation(chat: Chat, childTs: string) {
+  const { conversations } = useDb();
+  const query = {
+    channel: chat.channel,
+    ts: chat.ts
+  };
+  const updater = {
+    $set: { 'child.$[element]': childTs }
+  };
+  try {
+    await conversations.findOneAndUpdate(query, updater, { upsert: true });
   } catch (err) {
     logger.error(getErrorMessage(err));
   }

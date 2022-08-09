@@ -1,10 +1,10 @@
 import { Context } from 'probot';
-import path from "path";
+import path from 'path';
 import { useSlackClient } from '../../utils.js';
 import {
   getChannelsFromRepository,
   getPullRequestMessages,
-  getSlackUserName,
+  getSlackUserName, insertChildToConversation,
 } from '../../requests.js';
 
 export default async function commented({ payload }: Context<'pull_request_review_comment.created'>) {
@@ -26,7 +26,7 @@ export default async function commented({ payload }: Context<'pull_request_revie
   }
 
   await Promise.all(pullRequestMessages.map(async ({ channel, ts }) => {
-    const response = await app.client.chat.postMessage({
+    const { ts: childTs } = await app.client.chat.postMessage({
       text: '💬 Commented',
       blocks: [
         {
@@ -43,6 +43,6 @@ export default async function commented({ payload }: Context<'pull_request_revie
       channel,
       token
     });
-    console.log(response, 'response');
+    await insertChildToConversation({ channel, ts }, childTs as string);
   }));
 }

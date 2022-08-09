@@ -124,10 +124,6 @@ export interface ReadyForReviewMessageArguments {
   jiraLink: string;
 }
 
-export interface SetReviewerMessageArguments {
-  channel: string;
-}
-
 export interface PleaseInstallMessageArguments {
   owner: string;
   repo: string;
