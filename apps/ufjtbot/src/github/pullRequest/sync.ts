@@ -2,7 +2,7 @@ import { Context } from 'probot';
 import { useSlackClient } from '../../utils.js';
 import {
   getChannelsFromRepository,
-  getPullRequestMessages
+  getPullRequestMessages, insertChildToConversation
 } from '../../requests.js';
 
 export default async function sync({ payload }: Context<'pull_request.synchronize'>) {
@@ -21,7 +21,7 @@ export default async function sync({ payload }: Context<'pull_request.synchroniz
   }
 
   await Promise.all(pullRequestMessages.map(async ({ channel, ts }) => {
-    await app.client.chat.postMessage({
+    const { ts: childTs } = await app.client.chat.postMessage({
       text: '💬 Sync',
       blocks: [
         {
@@ -38,5 +38,6 @@ export default async function sync({ payload }: Context<'pull_request.synchroniz
       channel,
       token
     });
+    await insertChildToConversation({ channel, ts }, childTs as string);
   }));
 }
