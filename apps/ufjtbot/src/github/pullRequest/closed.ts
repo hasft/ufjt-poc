@@ -22,7 +22,7 @@ export default async function closed({ payload }: Context<'pull_request.closed'>
   }
 
   try {
-    await Promise.all(pullRequestMessages.map(async ({ channel, ts }) => {
+    await Promise.all(pullRequestMessages.map(async ({ channel, ts, child }) => {
       await app.client.chat.update({
         token,
         channel,
@@ -37,6 +37,15 @@ export default async function closed({ payload }: Context<'pull_request.closed'>
         }),
         ts: ts
       });
+      if (child.length) {
+        await Promise.all(child.map(async (childTs) => {
+          await app.client.chat.delete({
+            token,
+            channel,
+            ts: childTs
+          });
+        }));
+      }
       await removeConversation({ channel, ts });
     }));
   } catch (err) {
