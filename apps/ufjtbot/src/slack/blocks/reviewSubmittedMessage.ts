@@ -10,7 +10,7 @@ export default function reviewSubmittedMessage(arg: ReviewSubmittedMessageArgume
       'elements': [
         {
           'type': 'mrkdwn',
-          'text': `${user} has ${state} on \`<!date^${convertedTime}^{time_secs}|6:39 AM PST>\`\n<${url}|${url}>`
+          'text': `@${user} has ${state} on \`<!date^${convertedTime}^{time_secs}|6:39 AM PST>\`\n<${url}|${url}>`
         }
       ]
     }
