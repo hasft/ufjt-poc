@@ -10,10 +10,11 @@ import {
 // eslint-disable-next-line max-lines-per-function
 export default async function commented({ payload }: Context<'pull_request_review_comment.created'>) {
   const { app, token } = useSlackClient();
-  const { comment, pull_request, repository } = payload;
+  const { comment, pull_request } = payload;
   const { user, body, path: commentPath, html_url } = comment;
-  const { user: prUser } = pull_request;
-  const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
+  const { user: prUser, base } = pull_request;
+  const { repo } = base;
+  const channels = await getChannelsFromRepository(repo.full_name);
   const ufjtUser = await getSlackUserName(user.id);
 
   if (!channels?.length) {

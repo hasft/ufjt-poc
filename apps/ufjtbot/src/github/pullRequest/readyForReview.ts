@@ -90,12 +90,12 @@ const getChats = async (channels: WithId<Subscriber>[], messageArguments: ReadyF
  * @param payload
  */
 const readyForReview = async ({ payload }: Context<'pull_request.ready_for_review'>) => {
-  const { repository, pull_request } = payload;
+  const { pull_request } = payload;
   const {
     id: pullRequestId,
     requested_reviewers,
   } = pull_request;
-  const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
+  const channels = await getChannelsFromRepository(pull_request.base.repo.full_name);
 
   if (!channels) {
     return;
