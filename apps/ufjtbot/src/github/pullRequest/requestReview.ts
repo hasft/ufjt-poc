@@ -10,9 +10,10 @@ import { getReviewer } from './utils.js';
 // eslint-disable-next-line max-lines-per-function
 export default async function requestReview({ payload }: Context<'pull_request.review_requested'>) {
   const { app, token } = useSlackClient();
-  const { pull_request, repository } = payload;
-  const { draft, requested_reviewers } = pull_request;
-  const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
+  const { pull_request } = payload;
+  const { draft, requested_reviewers, base } = pull_request;
+  const { repo } = base;
+  const channels = await getChannelsFromRepository(repo.full_name);
   const reviewers = await getReviewer(channels, requested_reviewers);
 
   if (!channels?.length || draft || !reviewers) {

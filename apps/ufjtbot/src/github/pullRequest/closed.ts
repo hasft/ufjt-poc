@@ -7,10 +7,11 @@ import mergedMessage from '../../slack/blocks/mergedMessage.js';
 // eslint-disable-next-line max-lines-per-function
 export default async function closed({ payload }: Context<'pull_request.closed'>) {
   const { app, token } = useSlackClient();
-  const { repository, pull_request, sender } = payload;
+  const { pull_request, sender } = payload;
   const { title, html_url, base, merged } = pull_request;
+  const { repo } = base;
 
-  const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
+  const channels = await getChannelsFromRepository(repo.full_name);
 
   if (!channels?.length) {
     return;

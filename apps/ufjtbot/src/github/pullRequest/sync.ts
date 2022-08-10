@@ -7,8 +7,8 @@ import {
 
 export default async function sync({ payload }: Context<'pull_request.synchronize'>) {
   const { app, token } = useSlackClient();
-  const { pull_request, repository } = payload;
-  const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
+  const { pull_request } = payload;
+  const channels = await getChannelsFromRepository(pull_request.base.repo.full_name);
 
   if (!channels?.length) {
     return;
