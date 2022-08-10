@@ -1,5 +1,11 @@
 # @ufjt-poc/bot
 
+## 1.1.1
+
+### Patch Changes
+
+- [#93](https://github.com/hasft/ufjt-poc/pull/93) [`da121c3`](https://github.com/hasft/ufjt-poc/commit/da121c3b5bba57411e0bc22b859bfde0a7adec97) Thanks [@hasft](https://github.com/hasft)! - patches
+
 ## 1.1.0
 
 ### Minor Changes
