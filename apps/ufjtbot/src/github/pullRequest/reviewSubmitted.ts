@@ -1,7 +1,7 @@
 import { Context } from 'probot';
 import { useSlackClient } from '../../utils.js';
 import reviewSubmittedMessage from '../../slack/blocks/reviewSubmittedMessage.js';
-import { getChannelsFromRepository, getPullRequestMessages } from '../../requests.js';
+import { getChannelsFromRepository, getPullRequestMessages, insertChildToConversation } from '../../requests.js';
 
 export default async function reviewSubmitted({ payload }: Context<'pull_request_review.submitted'>) {
   const { app, token } = useSlackClient();
@@ -20,7 +20,7 @@ export default async function reviewSubmitted({ payload }: Context<'pull_request
   }
 
   await Promise.all(pullRequestMessages.map(async ({ channel, ts }) => {
-    await app.client.chat.postMessage({
+    const { ts: childTs } = await app.client.chat.postMessage({
       text: '🌈 Review Submitted',
       blocks: reviewSubmittedMessage({
         user: user.login,
@@ -33,5 +33,6 @@ export default async function reviewSubmitted({ payload }: Context<'pull_request
       channel,
       token
     });
+    await insertChildToConversation({ channel, ts }, childTs as string);
   }));
 }
