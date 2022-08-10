@@ -27,7 +27,7 @@ export default async function closed({ payload }: Context<'pull_request.closed'>
       await app.client.chat.update({
         token,
         channel,
-        text: `${pull_request.number} MERGED ⚡`,
+        text: `${pull_request.number} Closed ⚡`,
         blocks: mergedMessage({
           url: html_url,
           title: title,
