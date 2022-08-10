@@ -12,8 +12,8 @@ interface JiraMatchedGroups {
 }
 
 // eslint-disable-next-line max-lines-per-function
-const createMessagePayload = async (
-  pullRequest: Context<'pull_request.ready_for_review'>['payload']['pull_request'],
+export const createMessagePayload = async (
+  pullRequest: Context<'pull_request.ready_for_review' | 'pull_request.reopened'>['payload']['pull_request'],
   reviewers: Set<string>
 ): Promise<ReadyForReviewMessageArguments> => {
   const {

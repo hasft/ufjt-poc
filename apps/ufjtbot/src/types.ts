@@ -102,6 +102,7 @@ export interface Conversation {
   ts: string;
   channel: string;
   pull_request: number;
+  child: string[];
 }
 
 export interface ReadyForReviewMessageArguments {

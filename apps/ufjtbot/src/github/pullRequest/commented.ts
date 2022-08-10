@@ -34,7 +34,7 @@ export default async function commented({ payload }: Context<'pull_request_revie
           'elements': [
             {
               'type': 'mrkdwn',
-              'text': `@${ufjtUser || user.login} ${comment.user.id === prUser.id ? 'response' : 'reviewed'} _<${html_url}|${path.basename(commentPath)}>_\n_${body}_`
+              'text': `@${ufjtUser || user.login} ${comment.user.id === prUser.id ? 'response' : 'reviewed'} _<${html_url}|${path.basename(commentPath)}>_\n>_${body}_`
             }
           ]
         }

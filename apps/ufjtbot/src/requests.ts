@@ -170,10 +170,10 @@ export async function insertChildToConversation(chat: Chat, childTs: string) {
     ts: chat.ts
   };
   const updater = {
-    $set: { 'child.$[element]': childTs }
+    $push: { child: childTs }
   };
   try {
-    await conversations.findOneAndUpdate(query, updater, { upsert: true });
+    await conversations.updateOne(query, updater, { upsert: true });
   } catch (err) {
     logger.error(getErrorMessage(err));
   }
