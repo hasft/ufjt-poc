@@ -10,8 +10,8 @@ import { getChannelsFromRepository, getPullRequestMessages } from '../../request
  */
 export default async function edited({ payload }: Context<'pull_request.edited'>) {
   const { app, token } = useSlackClient();
-  const { repository, pull_request, changes, sender } = payload;
-  const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
+  const { pull_request, changes, sender } = payload;
+  const channels = await getChannelsFromRepository(pull_request.base.repo.full_name);
 
   if (!channels?.length) {
     return;
