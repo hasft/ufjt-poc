@@ -1,7 +1,7 @@
 import { Context } from 'probot';
 import { logger } from '@ufjt-poc/logger';
 import { getErrorMessage, useSlackClient } from '../../utils.js';
-import { getChannelsFromRepository, getPullRequestMessages, removeConversation } from '../../requests.js';
+import { getChannelsFromRepository, getPullRequestMessages } from '../../requests.js';
 import mergedMessage from '../../slack/blocks/mergedMessage.js';
 
 // eslint-disable-next-line max-lines-per-function
@@ -47,7 +47,6 @@ export default async function closed({ payload }: Context<'pull_request.closed'>
           });
         }));
       }
-      await removeConversation({ channel, ts });
     }));
   } catch (err) {
     logger.error(getErrorMessage(err));
