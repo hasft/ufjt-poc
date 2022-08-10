@@ -7,6 +7,7 @@ import {
   getSlackUserName, insertChildToConversation,
 } from '../../requests.js';
 
+// eslint-disable-next-line max-lines-per-function
 export default async function commented({ payload }: Context<'pull_request_review_comment.created'>) {
   const { app, token } = useSlackClient();
   const { comment, pull_request, repository } = payload;
@@ -30,11 +31,20 @@ export default async function commented({ payload }: Context<'pull_request_revie
       text: '💬 Commented',
       blocks: [
         {
-          'type': 'context',
-          'elements': [
+          type: 'context',
+          elements: [
             {
-              'type': 'mrkdwn',
-              'text': `@${ufjtUser || user.login} ${comment.user.id === prUser.id ? 'response' : 'reviewed'} _<${html_url}|${path.basename(commentPath)}>_\n>_${body}_`
+              type: 'mrkdwn',
+              text: `@${ufjtUser || user.login} ${comment.user.id === prUser.id ? 'response' : 'reviewed'} _<${html_url}|${path.basename(commentPath)}>_`
+            }
+          ]
+        },
+        {
+          type: 'context',
+          elements: [
+            {
+              type: 'mrkdwn',
+              text: `>_${body}_`
             }
           ]
         }
