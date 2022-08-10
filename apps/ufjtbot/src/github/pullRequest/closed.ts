@@ -4,6 +4,7 @@ import { getErrorMessage, useSlackClient } from '../../utils.js';
 import { getChannelsFromRepository, getPullRequestMessages, removeConversation } from '../../requests.js';
 import mergedMessage from '../../slack/blocks/mergedMessage.js';
 
+// eslint-disable-next-line max-lines-per-function
 export default async function closed({ payload }: Context<'pull_request.closed'>) {
   const { app, token } = useSlackClient();
   const { repository, pull_request, sender } = payload;
