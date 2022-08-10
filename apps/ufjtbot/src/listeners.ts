@@ -9,6 +9,7 @@ import closed from './github/pullRequest/closed.js';
 import reviewSubmitted from './github/pullRequest/reviewSubmitted.js';
 import commented from './github/pullRequest/commented.js';
 import sync from './github/pullRequest/sync.js';
+import requestReview from './github/pullRequest/requestReview.js';
 import { GithubListeners, SlackListeners } from './types';
 
 export const slackListeners: SlackListeners = [
@@ -47,6 +48,10 @@ export const githubListeners: GithubListeners = [
   {
     name: 'pull_request.closed',
     handler: closed
+  },
+  {
+    name: 'pull_request.review_requested',
+    handler: requestReview
   },
   {
     name: 'pull_request.reopened',
