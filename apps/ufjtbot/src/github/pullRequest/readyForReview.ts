@@ -1,9 +1,10 @@
 import { Context } from 'probot';
+import { WithId } from 'mongodb';
 import readyForReviewMessage from '../../slack/blocks/readyForReviewMessage.js';
 import { addConversation, getChannelsFromRepository, getSlackUserName } from '../../requests.js';
 import { useSlackClient } from '../../utils.js';
 import { ReadyForReviewMessageArguments, Subscriber } from '../../types';
-import { WithId } from 'mongodb';
+import { getReviewer } from './utils.js';
 
 interface JiraMatchedGroups {
   jiraName: string;
@@ -11,10 +12,10 @@ interface JiraMatchedGroups {
 }
 
 // eslint-disable-next-line max-lines-per-function
-const createMessagePayload = (
+const createMessagePayload = async (
   pullRequest: Context<'pull_request.ready_for_review'>['payload']['pull_request'],
   reviewers: Set<string>
-): ReadyForReviewMessageArguments => {
+): Promise<ReadyForReviewMessageArguments> => {
   const {
     title,
     html_url: htmlUrl,
@@ -38,12 +39,13 @@ const createMessagePayload = (
   const {
     html_url: targetBranchUrl
   } = baseRepo;
+  const ufjtUser = await getSlackUserName(user.id);
 
   return {
     title,
     htmlUrl,
     number,
-    author,
+    author: ufjtUser || author,
     commits,
     targetBranch,
     targetBranchUrl,
@@ -82,29 +84,6 @@ const getChats = async (channels: WithId<Subscriber>[], messageArguments: ReadyF
   }
 };
 
-const getReviewer = async (
-  channels: WithId<Subscriber>[] | null,
-  requested_reviewers: Context<'pull_request.ready_for_review'>['payload']['pull_request']['requested_reviewers']
-): Promise<Set<string> | null> => {
-  if (!channels) {
-    return null;
-  }
-
-  const reviewers: Set<string> = new Set<string>();
-  const isChannelsHadDefaultReviewer = channels?.some(subscriber => subscriber.reviewers);
-
-  if (isChannelsHadDefaultReviewer && !requested_reviewers.length) {
-    channels.forEach(channel => channel.reviewers?.forEach(reviewer => reviewers.add(reviewer)));
-  } else {
-    const userReviewers = await getSlackUserName(requested_reviewers) || [];
-    userReviewers.forEach(reviewer => {
-      reviewers.add(reviewer);
-    });
-  }
-
-  return reviewers;
-};
-
 /**
  * This is the main one why ufjtbot created.
  * A notifier when pullRequest marked as 'Ready for review'
@@ -114,7 +93,7 @@ const readyForReview = async ({ payload }: Context<'pull_request.ready_for_revie
   const { repository, pull_request } = payload;
   const {
     id: pullRequestId,
-    requested_reviewers
+    requested_reviewers,
   } = pull_request;
   const channels = await getChannelsFromRepository(`${repository.owner.login}/${repository.name}`);
 
@@ -126,7 +105,7 @@ const readyForReview = async ({ payload }: Context<'pull_request.ready_for_revie
   if (!reviewers) {
     return;
   }
-  const messageArguments = createMessagePayload(pull_request, reviewers);
+  const messageArguments = await createMessagePayload(pull_request, reviewers);
   const chats = await getChats(channels, messageArguments);
 
   if (!chats) {
