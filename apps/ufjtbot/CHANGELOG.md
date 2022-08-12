@@ -1,5 +1,16 @@
 # @ufjt-poc/bot
 
+## 1.2.0
+
+### Minor Changes
+
+- [#99](https://github.com/hasft/ufjt-poc/pull/99) [`cde8a6d`](https://github.com/hasft/ufjt-poc/commit/cde8a6d6398af01eee6938028cbb1283f676b119) Thanks [@hasft](https://github.com/hasft)! - patches
+
+### Patch Changes
+
+- Updated dependencies [[`cde8a6d`](https://github.com/hasft/ufjt-poc/commit/cde8a6d6398af01eee6938028cbb1283f676b119)]:
+  - @ufjt-poc/logger@1.2.0
+
 ## 1.1.1
 
 ### Patch Changes
