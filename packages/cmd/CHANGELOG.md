@@ -1,5 +1,11 @@
 # @ufjt-poc/cmd
 
+## 1.2.0
+
+### Minor Changes
+
+- [#99](https://github.com/hasft/ufjt-poc/pull/99) [`cde8a6d`](https://github.com/hasft/ufjt-poc/commit/cde8a6d6398af01eee6938028cbb1283f676b119) Thanks [@hasft](https://github.com/hasft)! - patches
+
 ## 1.1.0
 
 ### Minor Changes
