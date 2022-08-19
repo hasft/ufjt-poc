@@ -1,5 +1,11 @@
 # @ufjt-poc/bot
 
+## 1.2.3
+
+### Patch Changes
+
+- [#145](https://github.com/hasft/ufjt-poc/pull/145) [`7838cf3`](https://github.com/hasft/ufjt-poc/commit/7838cf39eeec9074c4d6c2f331332a8ce55ecb3a) Thanks [@hasft](https://github.com/hasft)! - add user merged
+
 ## 1.2.2
 
 ### Patch Changes
