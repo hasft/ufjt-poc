@@ -1,7 +1,12 @@
 import { Context } from 'probot';
 import { logger } from '@ufjt-poc/logger';
 import { getErrorMessage, useSlackClient } from '../../utils.js';
-import { getChannelsFromRepository, getPullRequestMessages, removeConversation } from '../../requests.js';
+import {
+  getChannelsFromRepository,
+  getPullRequestMessages,
+  getSlackUserName,
+  removeConversation
+} from '../../requests.js';
 import mergedMessage from '../../slack/blocks/mergedMessage.js';
 
 // eslint-disable-next-line max-lines-per-function
@@ -10,6 +15,7 @@ export default async function closed({ payload }: Context<'pull_request.closed'>
   const { pull_request, sender } = payload;
   const { title, html_url, base, merged } = pull_request;
   const { repo } = base;
+  const ufjtUser = await getSlackUserName(sender.id);
 
   const channels = await getChannelsFromRepository(repo.full_name);
 
@@ -33,7 +39,7 @@ export default async function closed({ payload }: Context<'pull_request.closed'>
           url: html_url,
           title: title,
           state: merged ? 'merged' : 'closed',
-          user: sender.login,
+          user: ufjtUser || sender.login,
           branch: base.ref,
           number: pull_request.number
         }),
