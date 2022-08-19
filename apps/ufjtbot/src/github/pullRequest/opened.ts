@@ -14,6 +14,10 @@ export default async function opened({ payload, octokit }: Context<'pull_request
   const collaborators: Endpoints['GET /repos/{owner}/{repo}/collaborators']['response']['data'] = [];
   const { pull_request: pullRequest, repository } = payload;
 
+  if (pullRequest.draft) {
+    return;
+  }
+
   if (!pullRequest.requested_reviewers.length) {
     try {
       const { data } = await octokit.request('GET /repos/{owner}/{repo}/collaborators', {
