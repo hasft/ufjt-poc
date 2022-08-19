@@ -1,5 +1,11 @@
 # @ufjt-poc/bot
 
+## 1.2.4
+
+### Patch Changes
+
+- [#149](https://github.com/hasft/ufjt-poc/pull/149) [`1748941`](https://github.com/hasft/ufjt-poc/commit/1748941ca857465ed04a7d703d9c1151fb119a1c) Thanks [@buljagung](https://github.com/buljagung)! - test
+
 ## 1.2.3
 
 ### Patch Changes
