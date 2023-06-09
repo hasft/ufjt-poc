@@ -14,7 +14,7 @@
     "@changesets/changelog-git": "^0.1.12",
     "@changesets/changelog-github": "^0.4.6",
     "@changesets/cli": "^2.24.1",
-    "@swc/cli": "^0.1.57",
+    "@swc/cli": "^0.1.62",
     "@swc/core": "^1.2.220",
     "@swc/jest": "^0.2.22",
     "@ufjt-poc/cmd": "workspace:*",
